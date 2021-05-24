@@ -2,6 +2,9 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:greennindo/business_logic/auth.dart';
+
+import 'loading.dart';
 
 List items = [
   {
@@ -92,72 +95,88 @@ class _WelcomePageState extends State<WelcomePage> {
 
   double currentPage = 0.0;
   final _pageViewController = new PageController();
+  final AuthService _auth = AuthService();
+  bool loading = false; //use to display loading screen
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          child: Stack(
-            children: <Widget>[
-              Container(
-                  alignment: Alignment.topCenter,
-                  margin: EdgeInsets.symmetric(vertical: 10),
-                  child: Text(
-                    "Hello ! ",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                  )),
-              PageView.builder(
-                controller: _pageViewController,
-                itemCount: slides.length,
-                itemBuilder: (BuildContext context, int index) {
-                  _pageViewController.addListener(() {
-                    setState(() {
-                      currentPage = _pageViewController.page;
-                    });
-                  });
-                  return slides[index];
-                },
-              ),
-              Container(
-                  padding: EdgeInsets.symmetric(vertical: 50),
-                  alignment: Alignment.bottomCenter,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 70.0),
-                        padding: EdgeInsets.symmetric(vertical: 40.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: indicator(),
-                        ),
-                      ),
-                      Text(
-                        "Before starting, Gindo needs to have some information about you and your current habits",
-                        style: TextStyle(
-                          color: Colors.grey,
-                          letterSpacing: 1.2,
-                          fontSize: 16.0,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      OutlinedButton(
-                        onPressed: () {},
+    Future.delayed(Duration(seconds: 1));
+    return loading
+        ? Loading()
+        : SafeArea(
+            child: Scaffold(
+              body: Container(
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                        alignment: Alignment.topCenter,
+                        margin: EdgeInsets.symmetric(vertical: 10),
                         child: Text(
-                          "Get started",
+                          "Hello ! ",
                           style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[700]),
-                        ),
-                      )
-                    ],
-                  )),
-            ],
-          ),
-        ),
-      ),
-    );
+                              fontSize: 30, fontWeight: FontWeight.bold),
+                        )),
+                    PageView.builder(
+                      controller: _pageViewController,
+                      itemCount: slides.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        _pageViewController.addListener(() {
+                          setState(() {
+                            currentPage = _pageViewController.page;
+                          });
+                        });
+                        return slides[index];
+                      },
+                    ),
+                    Container(
+                        padding: EdgeInsets.symmetric(vertical: 50),
+                        alignment: Alignment.bottomCenter,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top: 70.0),
+                              padding: EdgeInsets.symmetric(vertical: 40.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: indicator(),
+                              ),
+                            ),
+                            Text(
+                              "Before starting, Gindo needs to have some information about you and your current habits",
+                              style: TextStyle(
+                                color: Colors.grey,
+                                letterSpacing: 1.2,
+                                fontSize: 16.0,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            OutlinedButton(
+                              onPressed: () async {
+                                setState(() {
+                                  loading = true;
+                                });
+                                dynamic result = _auth.signInAnon();
+                                if (result == null) {
+                                  print("Error sign in");
+                                } else {
+                                  print("User sign in");
+                                }
+                              },
+                              child: Text(
+                                "Get started",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey[700]),
+                              ),
+                            )
+                          ],
+                        )),
+                  ],
+                ),
+              ),
+            ),
+          );
   }
 }

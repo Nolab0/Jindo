@@ -1,17 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:greennindo/models/advice.dart';
+import 'package:greennindo/models/habit.dart';
 import 'package:greennindo/presentation/utilities/color.dart';
 
-class AdviceCard extends StatefulWidget {
-  Advice advice;
-  AdviceCard({@required this.advice});
+class HabitCard extends StatefulWidget {
+  Habit advice;
+  HabitCard({@required this.advice});
   @override
-  _AdviceCardState createState() => _AdviceCardState();
+  _HabitCardState createState() => _HabitCardState();
 }
 
-class _AdviceCardState extends State<AdviceCard> {
-  Advice advice;
+class _HabitCardState extends State<HabitCard> {
+  Habit advice;
   int daysRemaining;
   //if true advice is impossible to do in the remaining time
   bool impossible = false;
@@ -126,7 +126,7 @@ class _AdviceCardState extends State<AdviceCard> {
                   //TODO: go to screen to choose new advice
                 },
                 child: Text(
-                  "Advice failed",
+                  "Failed",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -134,7 +134,7 @@ class _AdviceCardState extends State<AdviceCard> {
                 ),
                 style: ButtonStyle(
                     backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.orange[700])),
+                        MaterialStateProperty.all<Color>(Colors.red[400])),
               )
             else
               Align(

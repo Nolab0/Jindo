@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "834535828308",
+    "project_id": "gindo-70feb",
+    "storage_bucket": "gindo-70feb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:834535828308:android:24ef256c0563d0bacdb6c1",
+        "android_client_info": {
+          "package_name": "com.thecolab.gindo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "834535828308-t7bm0uiuhpbbi4ctghekd7470k8q0sl4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0xiTR3hVq_g-GO8AlPKFbENKhdd1nkrQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "834535828308-t7bm0uiuhpbbi4ctghekd7470k8q0sl4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

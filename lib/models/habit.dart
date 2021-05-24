@@ -1,4 +1,4 @@
-class Advice {
+class Habit {
   //attribute
   String name;
   int currentTimes;
@@ -9,6 +9,6 @@ class Advice {
   DateTime limit; //objective should be realize before this date
 
   //constructor
-  Advice(this.name, this.currentTimes, this.objectiveTimes, this.points,
+  Habit(this.name, this.currentTimes, this.objectiveTimes, this.points,
       this.doneToday, this.finished, this.limit);
 }
