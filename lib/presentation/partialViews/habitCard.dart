@@ -47,7 +47,10 @@ class _HabitCardState extends State<HabitCard> {
                 width: 230, //to display remaining days
                 child: Text(
                   advice.name,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
               Row(
@@ -59,6 +62,9 @@ class _HabitCardState extends State<HabitCard> {
                   Text(
                     " / " + advice.objectiveTimes.toString() + " days",
                     style: TextStyle(
+                        decoration: impossible
+                            ? TextDecoration.lineThrough
+                            : TextDecoration.none,
                         fontWeight: FontWeight.bold,
                         color: Colors.black.withOpacity(0.4)),
                   )
@@ -71,8 +77,12 @@ class _HabitCardState extends State<HabitCard> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Text(
+                  "- " + advice.loosePoints.toString() + "pt",
+                  style: TextStyle(color: Colors.red.withOpacity(0.4)),
+                ),
                 Container(
-                  width: 280,
+                  width: 250,
                   child: LinearProgressIndicator(
                       minHeight: 10,
                       valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
@@ -80,7 +90,7 @@ class _HabitCardState extends State<HabitCard> {
                       value: advice.currentTimes / advice.objectiveTimes),
                 ),
                 Text(
-                  "+ " + advice.points.toString() + "pt",
+                  "+ " + advice.gainedPoints.toString() + "pt",
                   style: TextStyle(
                       color: advice.finished
                           ? Colors.black
@@ -97,29 +107,29 @@ class _HabitCardState extends State<HabitCard> {
                   daysRemaining.toString() +
                       " " +
                       day +
-                      " remaining to apply the advice",
+                      " remaining for the habit",
                   style: TextStyle(
                       fontSize: 13,
                       color: daysRemaining <= 2 ? Colors.red : Colors.black),
                 ),
               ),
             if (advice.finished)
-              Container(
-                  width: 200, //limited by the padding
-                  child: OutlinedButton(
-                    onPressed: () {
-                      //TODO: go to screen to choose new advice
-                    },
-                    child: Text("Finish advice",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold)),
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.green[400]),
-                    ),
-                  ))
+              OutlinedButton(
+                onPressed: () {
+                  //TODO: go to screen to choose new advice
+                },
+                child: Text("Habit complete !",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    )),
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0))),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.green[500]),
+                ),
+              )
             else if (impossible)
               OutlinedButton(
                 onPressed: () {
@@ -128,11 +138,13 @@ class _HabitCardState extends State<HabitCard> {
                 child: Text(
                   "Failed",
                   style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
                 ),
                 style: ButtonStyle(
+                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0))),
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.red[400])),
               )
@@ -154,16 +166,18 @@ class _HabitCardState extends State<HabitCard> {
                   child: Text(
                     advice.doneToday ? "Done for today" : "I dit it !",
                     style: TextStyle(
-                        color: advice.doneToday
-                            ? Colors.black.withOpacity(0.5)
-                            : Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
+                      color: advice.doneToday
+                          ? Colors.black.withOpacity(0.5)
+                          : Colors.white,
+                      fontSize: 16,
+                    ),
                   ),
                   style: ButtonStyle(
+                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0))),
                     backgroundColor: advice.doneToday
                         ? MaterialStateProperty.all<Color>(Colors.white)
-                        : MaterialStateProperty.all<Color>(Colors.green[400]),
+                        : MaterialStateProperty.all<Color>(Colors.green[500]),
                   ),
                 ),
               )

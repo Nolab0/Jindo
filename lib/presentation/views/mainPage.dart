@@ -5,7 +5,7 @@ import 'package:greennindo/data_access/database.dart';
 import 'package:greennindo/models/habit.dart';
 import 'package:greennindo/models/user_data.dart';
 import 'package:greennindo/presentation/utilities/color.dart';
-import 'package:greennindo/presentation/partialViews/adviceCard.dart';
+import 'package:greennindo/presentation/partialViews/habitCard.dart';
 import 'package:greennindo/presentation/views/loading.dart';
 import 'package:provider/provider.dart';
 
@@ -131,6 +131,7 @@ class _MainPageState extends State<MainPage> {
                                   4,
                                   5,
                                   5,
+                                  5,
                                   false,
                                   false,
                                   DateTime.now().add(Duration(days: 15)))),
@@ -140,12 +141,13 @@ class _MainPageState extends State<MainPage> {
                                 4,
                                 8,
                                 10,
+                                5,
                                 false,
                                 false,
                                 DateTime.now().add(Duration(days: 2))),
                           ),
                           HabitCard(
-                            advice: Habit("Eat less meat", 1, 10, 8, false,
+                            advice: Habit("Eat less meat", 1, 10, 8, 4, false,
                                 false, DateTime.now().add(Duration(days: 2))),
                           )
                         ],
