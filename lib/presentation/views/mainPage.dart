@@ -97,7 +97,7 @@ class _MainPageState extends State<MainPage> {
                                       gradient: gradient(),
                                       borderRadius: BorderRadius.circular(100)),
                                   child: Text(
-                                    "80",
+                                    userData.score.toString(),
                                     style: TextStyle(
                                         fontSize: 40,
                                         fontWeight: FontWeight.bold,
