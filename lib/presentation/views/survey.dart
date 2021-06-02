@@ -58,10 +58,9 @@ class _SurveyState extends State<Survey> {
                           children: [
                             Container(
                               padding: EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 15),
+                                  vertical: 5, horizontal: 15),
                               width: double.infinity,
                               height: 200,
-                              decoration: BoxDecoration(gradient: gradient()),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment:
@@ -72,18 +71,18 @@ class _SurveyState extends State<Survey> {
                                       (currentQuestion + 1).toString() +
                                           " of " +
                                           survey.totalQuestions.toString(),
-                                      style: TextStyle(color: Colors.white),
+                                      style: TextStyle(color: Colors.black),
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 0),
+                                    padding: EdgeInsets.only(bottom: 15),
                                     child: LinearProgressIndicator(
                                         minHeight: 10,
                                         valueColor:
                                             AlwaysStoppedAnimation<Color>(
                                                 Colors.green[800]),
                                         backgroundColor:
-                                            Colors.white.withOpacity(0.5),
+                                            Colors.grey.withOpacity(0.5),
                                         value: (currentQuestion + 1) /
                                             survey.totalQuestions),
                                   ),
@@ -91,10 +90,18 @@ class _SurveyState extends State<Survey> {
                                     current.question,
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
-                                        fontSize: 35,
-                                        color: Colors.white,
+                                        fontSize: 30,
+                                        color: Colors.grey[800],
                                         fontWeight: FontWeight.bold),
-                                  )
+                                  ),
+                                  Text(
+                                      current.type == questionType.textfield
+                                          ? "This name will appear in the public leaderboard"
+                                          : "",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          letterSpacing: 1.5,
+                                          color: Colors.grey[800])),
                                 ],
                               ),
                             ),
@@ -111,62 +118,67 @@ class _SurveyState extends State<Survey> {
                                         fontSize: 18,
                                         color: Colors.red,
                                       )),
-                                  OutlinedButton(
-                                      style: ButtonStyle(
-                                        shape: MaterialStateProperty.all(
-                                            RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        10.0))),
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                Colors.green[400]),
-                                      ),
-                                      onPressed: () {
-                                        if (finished()) {
-                                          finishSurvey(
-                                              userData, currentScore, context);
-                                        }
-                                        setState(() {
-                                          validation = true;
-                                          if (!current.isAnswered()) {
-                                            validation = false;
-                                          }
-                                          if (current.type ==
-                                                  questionType.mcq &&
-                                              current.isAnswered()) {
-                                            //update the score and go the next question
-                                            currentScore = updateScore(survey,
-                                                currentQuestion, currentScore);
-                                          } else if (current.type ==
-                                                  questionType.textfield &&
-                                              current.isAnswered()) {
-                                            updateName(
-                                                userData,
-                                                survey,
-                                                currentQuestion,
-                                                current.answer);
-                                          }
-                                          if (current.isAnswered() &&
-                                              !finished()) {
-                                            currentQuestion++;
-                                          }
-                                        });
-                                      },
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        width: 250,
-                                        height: 50,
-                                        child: Text(
-                                          finished()
-                                              ? "Finish"
-                                              : "Next Question",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w400),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        gradient: gradient(),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0)),
+                                    child: OutlinedButton(
+                                        style: ButtonStyle(
+                                          shape: MaterialStateProperty.all(
+                                              RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0))),
                                         ),
-                                      )),
+                                        onPressed: () {
+                                          if (finished()) {
+                                            finishSurvey(userData, currentScore,
+                                                context);
+                                          }
+                                          setState(() {
+                                            validation = true;
+                                            if (!current.isAnswered()) {
+                                              validation = false;
+                                            }
+                                            if (current.type ==
+                                                    questionType.mcq &&
+                                                current.isAnswered()) {
+                                              //update the score and go the next question
+                                              currentScore = updateScore(
+                                                  survey,
+                                                  currentQuestion,
+                                                  currentScore);
+                                            } else if (current.type ==
+                                                    questionType.textfield &&
+                                                current.isAnswered()) {
+                                              updateName(
+                                                  userData,
+                                                  survey,
+                                                  currentQuestion,
+                                                  current.answer);
+                                            }
+                                            if (current.isAnswered() &&
+                                                !finished()) {
+                                              currentQuestion++;
+                                            }
+                                          });
+                                        },
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          width: 180,
+                                          height: 50,
+                                          child: Text(
+                                            finished()
+                                                ? "Finish"
+                                                : "Next Question",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                        )),
+                                  ),
                                 ],
                               ),
                             ),
@@ -204,10 +216,13 @@ class _TFieldState extends State<TField> {
         keyboardType: TextInputType.text,
         maxLines: 1,
         decoration: InputDecoration(
-            labelText: "Your name",
-            labelStyle: TextStyle(color: Colors.black.withOpacity(0.4)),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
+          labelText: "Your name",
+          labelStyle: TextStyle(color: Colors.black.withOpacity(0.4)),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide: BorderSide(color: Colors.green, width: 2)),
+        ),
         onChanged: (String s) {
           name = s;
           widget.question.answer = name;
@@ -232,6 +247,7 @@ class _McQuestionState extends State<McQuestion> {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
+        physics: NeverScrollableScrollPhysics(), //block the scrolling
         itemCount: widget.question.answers.length,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(

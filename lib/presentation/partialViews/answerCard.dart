@@ -10,24 +10,26 @@ class Option extends StatelessWidget {
     return Container(
         width: 100,
         height: 70,
-        margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+        margin: EdgeInsets.symmetric(vertical: 25, horizontal: 15),
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
             border: Border.all(
-                color: selected ? Colors.green : Colors.grey.withOpacity(0.6),
-                width: selected ? 2 : 1),
+                color:
+                    selected ? Colors.green[600] : Colors.grey.withOpacity(0.8),
+                width: selected ? 3 : 1),
             borderRadius: BorderRadius.circular(20)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               option,
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 20, color: Colors.black),
             ),
             Icon(
               selected ? Icons.check_circle : Icons.circle_outlined,
               size: 30,
-              color: selected ? Colors.green : Colors.grey.withOpacity(0.6),
+              color:
+                  selected ? Colors.green[600] : Colors.grey.withOpacity(0.8),
             ),
           ],
         ));

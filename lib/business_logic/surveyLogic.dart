@@ -35,7 +35,6 @@ void updateName(
 
 //Finish the survey, save the score in firebase and redirect to the main page
 void finishSurvey(UserData userData, int finalScore, BuildContext context) {
-  print(finalScore);
   DatabaseService(uid: userData.uid).updateUserData(userData.name, finalScore);
   Navigator.pushReplacement(
       context, MaterialPageRoute(builder: (context) => MainPage()));

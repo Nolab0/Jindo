@@ -104,10 +104,7 @@ class _HabitCardState extends State<HabitCard> {
               Container(
                 width: 150,
                 child: Text(
-                  daysRemaining.toString() +
-                      " " +
-                      day +
-                      " remaining for the habit",
+                  daysRemaining.toString() + " " + day + " to go",
                   style: TextStyle(
                       fontSize: 13,
                       color: daysRemaining <= 2 ? Colors.red : Colors.black),
