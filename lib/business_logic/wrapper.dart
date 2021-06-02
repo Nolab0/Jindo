@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:greennindo/business_logic/auth.dart';
 import 'package:greennindo/models/user_data.dart';
 import 'package:greennindo/presentation/views/loading.dart';
+import 'package:greennindo/presentation/views/mainPage.dart';
 import 'package:greennindo/presentation/views/survey.dart';
 import 'package:greennindo/presentation/views/welcomePage.dart';
 
@@ -16,7 +17,7 @@ class Wrapper extends StatelessWidget {
             return Loading();
           }
           if (snapshot.data is CustUser && snapshot.data != null) {
-            return Survey();
+            return MainPage();
           }
           return WelcomePage(); //user not logged-in
         });

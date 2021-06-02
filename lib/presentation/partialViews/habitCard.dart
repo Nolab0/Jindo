@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:greennindo/models/habit.dart';
 import 'package:greennindo/presentation/utilities/color.dart';
+import 'package:greennindo/presentation/utilities/gradientButton.dart';
 
 class HabitCard extends StatefulWidget {
   Habit advice;
@@ -111,73 +112,74 @@ class _HabitCardState extends State<HabitCard> {
                 ),
               ),
             if (advice.finished)
-              OutlinedButton(
-                onPressed: () {
-                  //TODO: go to screen to choose new advice
-                },
-                child: Text("Habit complete !",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                    )),
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0))),
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.green[500]),
+              GestureDetector(
+                child: GradientButton(
+                  width: 150,
+                  height: 50,
+                  border: false,
+                  gradient: gradient(),
+                  text: Text("Habit complete !",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      )),
                 ),
+                onTap: () {
+                  //TODO: redirect to habit choose screen
+                },
               )
             else if (impossible)
-              OutlinedButton(
-                onPressed: () {
-                  //TODO: go to screen to choose new advice
-                },
-                child: Text(
-                  "Failed",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
+              GestureDetector(
+                child: GradientButton(
+                  border: false,
+                  width: 80,
+                  height: 45,
+                  gradient: redGradient(),
+                  text: Text(
+                    "Failed",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
                   ),
                 ),
-                style: ButtonStyle(
-                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0))),
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.red[400])),
+                onTap: () {
+                  //TODO: redirect to loose point screen
+                },
               )
             else
               Align(
-                alignment: Alignment.topRight,
-                child: OutlinedButton(
-                  onPressed: advice.doneToday
-                      ? null //button disabled
-                      : () {
-                          if (!advice.doneToday) //button enabled
-                            setState(() {
-                              advice.doneToday = true;
-                              advice.currentTimes++;
-                              if (advice.currentTimes == advice.objectiveTimes)
-                                advice.finished = true;
-                            });
-                        },
-                  child: Text(
-                    advice.doneToday ? "Done for today" : "I dit it !",
-                    style: TextStyle(
-                      color: advice.doneToday
-                          ? Colors.black.withOpacity(0.5)
-                          : Colors.white,
-                      fontSize: 16,
+                  alignment: Alignment.topRight,
+                  child: (GestureDetector(
+                    child: GradientButton(
+                      width: 80,
+                      height: 45,
+                      gradient: advice.doneToday ? whiteGradient() : gradient(),
+                      border: advice.doneToday,
+                      text: Text(
+                        advice.doneToday ? "Done for today" : "I dit it !",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: advice.doneToday
+                              ? Colors.black.withOpacity(0.5)
+                              : Colors.white,
+                          fontSize: 16,
+                        ),
+                      ),
                     ),
-                  ),
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0))),
-                    backgroundColor: advice.doneToday
-                        ? MaterialStateProperty.all<Color>(Colors.white)
-                        : MaterialStateProperty.all<Color>(Colors.green[500]),
-                  ),
-                ),
-              )
+                    onTap: advice.doneToday
+                        ? null //button disabled
+                        : () {
+                            if (!advice.doneToday) //button enabled
+                              setState(() {
+                                advice.doneToday = true;
+                                advice.currentTimes++;
+                                if (advice.currentTimes ==
+                                    advice.objectiveTimes)
+                                  advice.finished = true;
+                              });
+                          },
+                  )))
           ])
         ],
       ),
