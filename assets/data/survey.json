@@ -20,7 +20,7 @@
             "question": "What percentage of your food shopping is local ?",
             "answers": 
             ["Less than 20%","Between 20% and 50%","Between 50% and 75%","More than 75%"],
-            "correspondingPoints": ["-5","0","5","10"],
+            "correspondingPoints": ["-10","0","5","10"],
             "questionType": "mcq"
         },
         {

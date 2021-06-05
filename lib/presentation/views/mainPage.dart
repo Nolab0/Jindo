@@ -16,9 +16,25 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final AuthService _auth = AuthService();
+  List<Habit> habits1 = [
+    Habit("Take shower less than 5min", 4, 5, 5, 5, false, false,
+        DateTime.now().add(Duration(days: 15))),
+    Habit("Turn off your devices the night", 4, 8, 10, 5, false, false,
+        DateTime.now().add(Duration(days: 2))),
+    Habit("Eat less meat", 1, 10, 8, 4, false, false,
+        DateTime.now().add(Duration(days: 2)))
+  ];
+  List<Habit> habits = [];
+
+  bool empty = true; //true if the user has no habit to do
 
   @override
   Widget build(BuildContext context) {
+    if (habits.length > 0) {
+      empty = false;
+    } else {
+      empty = true;
+    }
     final user = Provider.of<CustUser>(context);
     return StreamBuilder<UserData>(
       stream: DatabaseService(uid: user.uid).userData,
@@ -120,40 +136,51 @@ class _MainPageState extends State<MainPage> {
                   Text("Habits:",
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  Expanded(
-                    child: ScrollConfiguration(
-                      behavior: NoGlowBehaviour(),
-                      child: ListView(
+                  if (empty)
+                    Container(
+                      height: 300,
+                      padding: EdgeInsets.symmetric(vertical: 20),
+                      alignment: Alignment.center,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          HabitCard(
-                              advice: Habit(
-                                  "Take shower less than 5min",
-                                  4,
-                                  5,
-                                  5,
-                                  5,
-                                  false,
-                                  false,
-                                  DateTime.now().add(Duration(days: 15)))),
-                          HabitCard(
-                            advice: Habit(
-                                "Turn off your devices the night",
-                                4,
-                                8,
-                                10,
-                                5,
-                                false,
-                                false,
-                                DateTime.now().add(Duration(days: 2))),
-                          ),
-                          HabitCard(
-                            advice: Habit("Eat less meat", 1, 10, 8, 4, false,
-                                false, DateTime.now().add(Duration(days: 2))),
+                          Text("You don't have habit to take at the moment",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  letterSpacing: 1.4,
+                                  color: Colors.black.withOpacity(0.5))),
+                          Text("Add an habit to start",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  letterSpacing: 1.4,
+                                  color: Colors.black.withOpacity(0.5))),
+                          FloatingActionButton(
+                            child: Container(
+                              width: 60,
+                              height: 60,
+                              child: Icon(Icons.add),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle, gradient: gradient()),
+                            ),
+                            onPressed: () {
+                              print("add habit");
+                            },
                           )
                         ],
                       ),
-                    ),
-                  )
+                    )
+                  else
+                    Expanded(
+                      child: ScrollConfiguration(
+                          behavior: NoGlowBehaviour(),
+                          child: ListView.builder(
+                            itemCount: habits.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return HabitCard(habit: habits[index]);
+                            },
+                          )),
+                    )
                 ],
               ),
             ),

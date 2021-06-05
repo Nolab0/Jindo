@@ -5,14 +5,14 @@ import 'package:greennindo/presentation/utilities/color.dart';
 import 'package:greennindo/presentation/utilities/gradientButton.dart';
 
 class HabitCard extends StatefulWidget {
-  Habit advice;
-  HabitCard({@required this.advice});
+  Habit habit;
+  HabitCard({@required this.habit});
   @override
   _HabitCardState createState() => _HabitCardState();
 }
 
 class _HabitCardState extends State<HabitCard> {
-  Habit advice;
+  Habit habit;
   int daysRemaining;
   //if true advice is impossible to do in the remaining time
   bool impossible = false;
@@ -20,9 +20,9 @@ class _HabitCardState extends State<HabitCard> {
 
   @override
   void initState() {
-    advice = widget.advice;
-    daysRemaining = advice.limit.difference(DateTime.now()).inDays;
-    if (daysRemaining - advice.objectiveTimes < 0) {
+    habit = widget.habit;
+    daysRemaining = habit.limit.difference(DateTime.now()).inDays;
+    if (daysRemaining - habit.objectiveTimes < 0) {
       impossible = true;
     }
     if (daysRemaining > 1) {
@@ -47,7 +47,7 @@ class _HabitCardState extends State<HabitCard> {
               Container(
                 width: 230, //to display remaining days
                 child: Text(
-                  advice.name,
+                  habit.name,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -57,11 +57,11 @@ class _HabitCardState extends State<HabitCard> {
               Row(
                 children: [
                   Text(
-                    advice.currentTimes.toString(),
+                    habit.currentTimes.toString(),
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    " / " + advice.objectiveTimes.toString() + " days",
+                    " / " + habit.objectiveTimes.toString() + " days",
                     style: TextStyle(
                         decoration: impossible
                             ? TextDecoration.lineThrough
@@ -79,7 +79,7 @@ class _HabitCardState extends State<HabitCard> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "- " + advice.loosePoints.toString() + "pt",
+                  "- " + habit.loosePoints.toString() + "pt",
                   style: TextStyle(color: Colors.red.withOpacity(0.4)),
                 ),
                 Container(
@@ -88,12 +88,12 @@ class _HabitCardState extends State<HabitCard> {
                       minHeight: 10,
                       valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
                       backgroundColor: Colors.grey.withOpacity(0.5),
-                      value: advice.currentTimes / advice.objectiveTimes),
+                      value: habit.currentTimes / habit.objectiveTimes),
                 ),
                 Text(
-                  "+ " + advice.gainedPoints.toString() + "pt",
+                  "+ " + habit.gainedPoints.toString() + "pt",
                   style: TextStyle(
-                      color: advice.finished
+                      color: habit.finished
                           ? Colors.black
                           : Colors.black.withOpacity(0.3)),
                 )
@@ -101,7 +101,7 @@ class _HabitCardState extends State<HabitCard> {
             ),
           ),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            if (!advice.finished)
+            if (!habit.finished)
               Container(
                 width: 150,
                 child: Text(
@@ -111,7 +111,7 @@ class _HabitCardState extends State<HabitCard> {
                       color: daysRemaining <= 2 ? Colors.red : Colors.black),
                 ),
               ),
-            if (advice.finished)
+            if (habit.finished)
               GestureDetector(
                 child: GradientButton(
                   width: 150,
@@ -154,29 +154,28 @@ class _HabitCardState extends State<HabitCard> {
                     child: GradientButton(
                       width: 80,
                       height: 45,
-                      gradient: advice.doneToday ? whiteGradient() : gradient(),
-                      border: advice.doneToday,
+                      gradient: habit.doneToday ? whiteGradient() : gradient(),
+                      border: habit.doneToday,
                       text: Text(
-                        advice.doneToday ? "Done for today" : "I dit it !",
+                        habit.doneToday ? "Done for today" : "I dit it !",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: advice.doneToday
+                          color: habit.doneToday
                               ? Colors.black.withOpacity(0.5)
                               : Colors.white,
                           fontSize: 16,
                         ),
                       ),
                     ),
-                    onTap: advice.doneToday
+                    onTap: habit.doneToday
                         ? null //button disabled
                         : () {
-                            if (!advice.doneToday) //button enabled
+                            if (!habit.doneToday) //button enabled
                               setState(() {
-                                advice.doneToday = true;
-                                advice.currentTimes++;
-                                if (advice.currentTimes ==
-                                    advice.objectiveTimes)
-                                  advice.finished = true;
+                                habit.doneToday = true;
+                                habit.currentTimes++;
+                                if (habit.currentTimes == habit.objectiveTimes)
+                                  habit.finished = true;
                               });
                           },
                   )))
