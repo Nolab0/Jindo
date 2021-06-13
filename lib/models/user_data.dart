@@ -1,4 +1,6 @@
 //custom class of user, get only the uid from firebase user
+import 'package:greennindo/models/habit.dart';
+
 class CustUser {
   String uid;
   CustUser({this.uid});
@@ -9,6 +11,8 @@ class UserData {
   String uid;
   String name;
   int score;
-  //TODO: add list of current habit
-  UserData({this.uid, this.name, this.score});
+  bool surveyDone; //true if the user has done the launch survey
+  List<Habit>
+      habits; //current habits of the user (don't need to be init via the constructor)
+  UserData({this.uid, this.name, this.score, this.surveyDone});
 }

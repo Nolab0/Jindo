@@ -15,6 +15,16 @@ Gradient gradient() {
       ]);
 }
 
+Gradient lightgradient() {
+  return LinearGradient(
+      begin: Alignment.bottomLeft,
+      end: Alignment.topRight,
+      colors: [
+        Color(0xff11998e).withOpacity(0.5),
+        Color(0xff38ef7d).withOpacity(0.5)
+      ]);
+}
+
 Gradient whiteGradient() {
   return LinearGradient(
       begin: Alignment.bottomLeft,

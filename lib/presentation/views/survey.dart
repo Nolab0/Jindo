@@ -58,7 +58,7 @@ class _SurveyState extends State<Survey> {
                           children: [
                             Container(
                               padding: EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 15),
+                                  vertical: 5, horizontal: 10),
                               width: double.infinity,
                               height: 200,
                               child: Column(

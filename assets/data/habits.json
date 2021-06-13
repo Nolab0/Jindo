@@ -1,0 +1,42 @@
+[
+    {
+        "name": "Take shower less than 5min",
+        "objectiveTimes": 5,
+        "delay": 8,
+        "gainedPoints":10,
+        "loosePoints":5,
+        "difficulty": 4
+    },
+    {
+        "name": "Turn off your devices the night",
+        "objectiveTimes": 5,
+        "delay": 8,
+        "gainedPoints":10,
+        "loosePoints":5,
+        "difficulty": 10
+    },
+    {
+        "name": "Take shower less than 5min",
+        "objectiveTimes": 5,
+        "delay": 8,
+        "gainedPoints":10,
+        "loosePoints":5,
+        "difficulty": 7
+    },
+    {
+        "name": "Take shower less than 5min",
+        "objectiveTimes": 5,
+        "delay": 8,
+        "gainedPoints":10,
+        "loosePoints":5,
+        "difficulty": 4
+    },
+    {
+        "name": "Take shower less than 5min",
+        "objectiveTimes": 5,
+        "delay": 8,
+        "gainedPoints":10,
+        "loosePoints":5,
+        "difficulty": 6
+    }
+]

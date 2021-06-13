@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:greennindo/business_logic/auth.dart';
+import 'package:greennindo/presentation/views/survey.dart';
 
 import 'loading.dart';
 

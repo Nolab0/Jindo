@@ -4,8 +4,9 @@ import 'package:greennindo/models/habit.dart';
 import 'package:greennindo/presentation/utilities/color.dart';
 import 'package:greennindo/presentation/utilities/gradientButton.dart';
 
+//Class for habit card in the main page
 class HabitCard extends StatefulWidget {
-  Habit habit;
+  final Habit habit;
   HabitCard({@required this.habit});
   @override
   _HabitCardState createState() => _HabitCardState();
@@ -22,7 +23,7 @@ class _HabitCardState extends State<HabitCard> {
   void initState() {
     habit = widget.habit;
     daysRemaining = habit.limit.difference(DateTime.now()).inDays;
-    if (daysRemaining - habit.objectiveTimes < 0) {
+    if (daysRemaining - (habit.objectiveTimes - habit.currentTimes) < 0) {
       impossible = true;
     }
     if (daysRemaining > 1) {
@@ -37,153 +38,199 @@ class _HabitCardState extends State<HabitCard> {
       width: double.infinity,
       height: 150,
       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
-      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+      padding: EdgeInsets.fromLTRB(8, 15, 8, 5),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              width: 230, //to display remaining days
+              child: Text(
+                habit.name,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            Row(
+              children: [
+                Text(
+                  habit.currentTimes.toString(),
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  " / " + habit.objectiveTimes.toString() + " days",
+                  style: TextStyle(
+                      decoration: impossible
+                          ? TextDecoration.lineThrough
+                          : TextDecoration.none,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black.withOpacity(0.4)),
+                )
+              ],
+            )
+          ],
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            children: [
+              Text(daysRemaining.toString() + " " + day + " remaining",
+                  style: TextStyle(
+                    color: daysRemaining > 2 ? Colors.black : Colors.red,
+                  )),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+                width: 200,
+                child: LinearProgressIndicator(
+                    minHeight: 6,
+                    backgroundColor: Colors.grey[300],
+                    color: daysRemaining > 2 ? Colors.green : Colors.red,
+                    value: daysRemaining / habit.delay),
+              )
+            ],
+          ),
+        ),
+        Align(
+            alignment: Alignment.bottomRight,
+            child: habit.finished
+                ? GestureDetector(
+                    child: GradientButton(
+                      width: 150,
+                      height: 50,
+                      border: false,
+                      gradient: gradient(),
+                      text: Text("Habit complete !",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          )),
+                    ),
+                    onTap: () {
+                      //TODO: redirect to habit choose screen
+                    },
+                  )
+                : impossible
+                    ? GestureDetector(
+                        child: GradientButton(
+                          border: false,
+                          width: 80,
+                          height: 45,
+                          gradient: redGradient(),
+                          text: Text(
+                            "Failed",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                          //TODO: redirect to loose point screen
+                        },
+                      )
+                    : GestureDetector(
+                        child: GradientButton(
+                          width: 80,
+                          height: 45,
+                          gradient:
+                              habit.doneToday ? whiteGradient() : gradient(),
+                          border: habit.doneToday,
+                          text: Text(
+                            habit.doneToday ? "Done for today" : "I dit it !",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: habit.doneToday
+                                  ? Colors.black.withOpacity(0.5)
+                                  : Colors.white,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                        onTap: habit.doneToday
+                            ? null //button disabled
+                            : () {
+                                if (!habit.doneToday) //button enabled
+                                  setState(() {
+                                    habit.doneToday = true;
+                                    habit.currentTimes++;
+                                    if (habit.currentTimes ==
+                                        habit.objectiveTimes)
+                                      habit.finished = true;
+                                  });
+                              },
+                      )),
+      ]),
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(20)),
+    );
+  }
+}
+
+//Class for habit card in the add page
+class HabitCardAdd extends StatelessWidget {
+  final Habit habit;
+  HabitCardAdd({this.habit});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 360,
+      height: 120,
+      margin: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                width: 230, //to display remaining days
-                child: Text(
-                  habit.name,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+              Text(
+                habit.name,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
-              Row(
+              Column(
                 children: [
-                  Text(
-                    habit.currentTimes.toString(),
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    " / " + habit.objectiveTimes.toString() + " days",
-                    style: TextStyle(
-                        decoration: impossible
-                            ? TextDecoration.lineThrough
-                            : TextDecoration.none,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black.withOpacity(0.4)),
-                  )
+                  Text("Objective: " +
+                      habit.objectiveTimes.toString() +
+                      " days"),
+                  Text("Period: " + habit.delay.toString() + " days")
                 ],
               )
             ],
           ),
-          Container(
-            margin: EdgeInsets.fromLTRB(0, 12, 0, 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "- " + habit.loosePoints.toString() + "pt",
-                  style: TextStyle(color: Colors.red.withOpacity(0.4)),
-                ),
-                Container(
-                  width: 250,
-                  child: LinearProgressIndicator(
-                      minHeight: 10,
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
-                      backgroundColor: Colors.grey.withOpacity(0.5),
-                      value: habit.currentTimes / habit.objectiveTimes),
-                ),
-                Text(
-                  "+ " + habit.gainedPoints.toString() + "pt",
-                  style: TextStyle(
-                      color: habit.finished
-                          ? Colors.black
-                          : Colors.black.withOpacity(0.3)),
-                )
-              ],
-            ),
-          ),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            if (!habit.finished)
-              Container(
+          Row(
+            children: [
+              Text("Difficulty: "),
+              SizedBox(
                 width: 150,
-                child: Text(
-                  daysRemaining.toString() + " " + day + " to go",
-                  style: TextStyle(
-                      fontSize: 13,
-                      color: daysRemaining <= 2 ? Colors.red : Colors.black),
+                child: LinearProgressIndicator(
+                  minHeight: 8,
+                  backgroundColor: Colors.grey[300],
+                  color: Colors.red[300],
+                  value: habit.difficulty / 10,
                 ),
               ),
-            if (habit.finished)
-              GestureDetector(
-                child: GradientButton(
-                  width: 150,
-                  height: 50,
-                  border: false,
-                  gradient: gradient(),
-                  text: Text("Habit complete !",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      )),
-                ),
-                onTap: () {
-                  //TODO: redirect to habit choose screen
-                },
-              )
-            else if (impossible)
-              GestureDetector(
-                child: GradientButton(
-                  border: false,
-                  width: 80,
-                  height: 45,
-                  gradient: redGradient(),
-                  text: Text(
-                    "Failed",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-                onTap: () {
-                  //TODO: redirect to loose point screen
-                },
-              )
-            else
-              Align(
-                  alignment: Alignment.topRight,
-                  child: (GestureDetector(
-                    child: GradientButton(
-                      width: 80,
-                      height: 45,
-                      gradient: habit.doneToday ? whiteGradient() : gradient(),
-                      border: habit.doneToday,
-                      text: Text(
-                        habit.doneToday ? "Done for today" : "I dit it !",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: habit.doneToday
-                              ? Colors.black.withOpacity(0.5)
-                              : Colors.white,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                    onTap: habit.doneToday
-                        ? null //button disabled
-                        : () {
-                            if (!habit.doneToday) //button enabled
-                              setState(() {
-                                habit.doneToday = true;
-                                habit.currentTimes++;
-                                if (habit.currentTimes == habit.objectiveTimes)
-                                  habit.finished = true;
-                              });
-                          },
-                  )))
-          ])
+              Text(
+                " + " + habit.gainedPoints.toString(),
+                style: TextStyle(color: Colors.green),
+              ),
+              Text(" / "),
+              Text("- " + habit.loosePoints.toString(),
+                  style: TextStyle(color: Colors.red))
+            ],
+          )
         ],
       ),
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(20)),
+          border: Border.all(
+              color: habit.selected ? Colors.green : Colors.white, width: 2),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20)),
     );
   }
 }

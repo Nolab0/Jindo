@@ -10,7 +10,7 @@ class Option extends StatelessWidget {
     return Container(
         width: 100,
         height: 70,
-        margin: EdgeInsets.symmetric(vertical: 25, horizontal: 15),
+        margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
             border: Border.all(

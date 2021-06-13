@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:greennindo/models/question.dart';
 
 //Class that contain data for the survey

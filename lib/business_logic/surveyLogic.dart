@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:greennindo/models/habit.dart';
 import 'package:greennindo/models/survey_data.dart';
 import 'package:greennindo/data_access/database.dart';
 import 'package:greennindo/models/question.dart';
@@ -30,12 +31,13 @@ void updateName(
     UserData userData, SurveyData survey, int questionIndex, String name) {
   Question question = survey.questions[questionIndex];
   question.answer = name;
-  DatabaseService(uid: userData.uid).updateUserData(name, 50);
+  DatabaseService(uid: userData.uid).updateUserData(name, 50, false, []);
 }
 
 //Finish the survey, save the score in firebase and redirect to the main page
 void finishSurvey(UserData userData, int finalScore, BuildContext context) {
-  DatabaseService(uid: userData.uid).updateUserData(userData.name, finalScore);
+  DatabaseService(uid: userData.uid)
+      .updateUserData(userData.name, finalScore, true, []);
   Navigator.pushReplacement(
       context, MaterialPageRoute(builder: (context) => MainPage()));
 }

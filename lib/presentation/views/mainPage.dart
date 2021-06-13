@@ -6,6 +6,7 @@ import 'package:greennindo/models/habit.dart';
 import 'package:greennindo/models/user_data.dart';
 import 'package:greennindo/presentation/utilities/color.dart';
 import 'package:greennindo/presentation/partialViews/habitCard.dart';
+import 'package:greennindo/presentation/views/habitePage.dart';
 import 'package:greennindo/presentation/views/loading.dart';
 import 'package:provider/provider.dart';
 
@@ -16,31 +17,24 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final AuthService _auth = AuthService();
-  List<Habit> habits1 = [
-    Habit("Take shower less than 5min", 4, 5, 5, 5, false, false,
-        DateTime.now().add(Duration(days: 15))),
-    Habit("Turn off your devices the night", 4, 8, 10, 5, false, false,
-        DateTime.now().add(Duration(days: 2))),
-    Habit("Eat less meat", 1, 10, 8, 4, false, false,
-        DateTime.now().add(Duration(days: 2)))
-  ];
   List<Habit> habits = [];
 
-  bool empty = true; //true if the user has no habit to do
+  bool empty = true; //true if the user has no habit to do7
 
   @override
   Widget build(BuildContext context) {
-    if (habits.length > 0) {
-      empty = false;
-    } else {
-      empty = true;
-    }
     final user = Provider.of<CustUser>(context);
     return StreamBuilder<UserData>(
       stream: DatabaseService(uid: user.uid).userData,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           UserData userData = snapshot.data;
+          habits = userData.habits;
+          if (habits.length > 0) {
+            empty = false;
+          } else {
+            empty = true;
+          }
           return SafeArea(
               child: Scaffold(
             backgroundColor: Colors.grey[100],
@@ -164,7 +158,10 @@ class _MainPageState extends State<MainPage> {
                                   shape: BoxShape.circle, gradient: gradient()),
                             ),
                             onPressed: () {
-                              print("add habit");
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HabitSelection()));
                             },
                           )
                         ],
@@ -172,15 +169,44 @@ class _MainPageState extends State<MainPage> {
                     )
                   else
                     Expanded(
-                      child: ScrollConfiguration(
-                          behavior: NoGlowBehaviour(),
-                          child: ListView.builder(
-                            itemCount: habits.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return HabitCard(habit: habits[index]);
-                            },
-                          )),
-                    )
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: ScrollConfiguration(
+                                behavior: NoGlowBehaviour(),
+                                child: ListView.builder(
+                                  itemCount: habits.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return HabitCard(habit: habits[index]);
+                                  },
+                                )),
+                          ),
+                          habits.length < 3
+                              ? Container(
+                                  margin: EdgeInsets.symmetric(vertical: 15),
+                                  child: FloatingActionButton(
+                                    child: Container(
+                                      width: 60,
+                                      height: 60,
+                                      child: Icon(Icons.add),
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          gradient: gradient()),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HabitSelection(
+                                                      currentHabits: habits)));
+                                    },
+                                  ))
+                              : Container()
+                        ],
+                      ),
+                    ),
                 ],
               ),
             ),
