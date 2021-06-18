@@ -41,7 +41,7 @@ class Habit {
         finished = false,
         delay = json['delay'],
         recommended = false,
-        limit = DateTime.now().add(Duration(days: json['delay']));
+        limit = DateTime.now().add(Duration(days: json['delay'] + 1));
 
   Habit.fromFirestore(Map<String, dynamic> json)
       : name = json['name'],

@@ -161,7 +161,8 @@ class _MainPageState extends State<MainPage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => HabitSelection()));
+                                      builder: (context) => HabitSelection(
+                                          currentHabits: habits)));
                             },
                           )
                         ],

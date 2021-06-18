@@ -138,7 +138,7 @@ class _HabitCardState extends State<HabitCard> {
                               habit.doneToday ? whiteGradient() : gradient(),
                           border: habit.doneToday,
                           text: Text(
-                            habit.doneToday ? "Done for today" : "I dit it !",
+                            habit.doneToday ? "Done for today" : "I did it",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: habit.doneToday
@@ -177,7 +177,7 @@ class HabitCardAdd extends StatelessWidget {
     return Container(
       width: 360,
       height: 120,
-      margin: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      margin: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -211,7 +211,7 @@ class HabitCardAdd extends StatelessWidget {
                 child: LinearProgressIndicator(
                   minHeight: 8,
                   backgroundColor: Colors.grey[300],
-                  color: Colors.red[300],
+                  color: Colors.red[400],
                   value: habit.difficulty / 10,
                 ),
               ),

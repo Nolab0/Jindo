@@ -69,7 +69,10 @@ class _HabitSelectionState extends State<HabitSelection> {
                         Container(
                           margin:
                               EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-                          child: Text("You can select up to 3 habits",
+                          child: Text(
+                              "You can select up to " +
+                                  maxSelectedHabits.toString() +
+                                  " habits",
                               style: TextStyle(
                                   color: Colors.black.withOpacity(0.6))),
                         ),
@@ -91,7 +94,10 @@ class _HabitSelectionState extends State<HabitSelection> {
                                     onTap: () {
                                       setState(() {
                                         nbSelectedHabits = selectHabit(
-                                            habits, index, nbSelectedHabits);
+                                            habits,
+                                            index,
+                                            nbSelectedHabits,
+                                            maxSelectedHabits);
                                         selectedHabits.add(habits[index]);
                                       });
                                     },
@@ -121,7 +127,10 @@ class _HabitSelectionState extends State<HabitSelection> {
                                     onTap: () {
                                       setState(() {
                                         nbSelectedHabits = selectHabit(
-                                            habits, index, nbSelectedHabits);
+                                            habits,
+                                            index,
+                                            nbSelectedHabits,
+                                            maxSelectedHabits);
                                         selectedHabits.add(habits[index]);
                                       });
                                     },

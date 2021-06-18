@@ -16,7 +16,7 @@
         "difficulty": 10
     },
     {
-        "name": "Take shower less than 5min",
+        "name": "Eat less meat",
         "objectiveTimes": 5,
         "delay": 8,
         "gainedPoints":10,
@@ -24,7 +24,7 @@
         "difficulty": 7
     },
     {
-        "name": "Take shower less than 5min",
+        "name": "Recycle your wastes",
         "objectiveTimes": 5,
         "delay": 8,
         "gainedPoints":10,

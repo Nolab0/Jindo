@@ -3,15 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:greennindo/business_logic/auth.dart';
-import 'package:greennindo/presentation/views/survey.dart';
 
 import 'loading.dart';
 
 List items = [
   {
-    "header": "Get your ecological score an take new habits ",
+    "header": "Get your score an take new habits ",
     "description":
-        "Online chat which provides its users maximum functionality to simplify the search",
+        "Jindo will establish your ecological score and recommend some habits",
     "image": "assets/images/appView.png"
   },
   {

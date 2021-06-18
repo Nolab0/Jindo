@@ -33,8 +33,9 @@ int countSelected(List<Habit> habits) {
 }
 
 //Select the habit at the correct index
-int selectHabit(List<Habit> habits, int index, int nbSelected) {
-  if (nbSelected == 3 && !habits[index].selected) {
+int selectHabit(
+    List<Habit> habits, int index, int nbSelected, int maxSelected) {
+  if (nbSelected == maxSelected && !habits[index].selected) {
     //if there is more than 3habits selected, deselect the first
     bool find = false;
     for (int i = 0; i < habits.length && !find; i++) {
