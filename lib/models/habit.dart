@@ -12,6 +12,7 @@ class Habit {
   bool selected;
   bool recommended;
   DateTime limit; //objective should be realize before this date
+  DateTime lastTimeDone; //mark the last time that the habit was done
 
   //constructor
   Habit(
@@ -26,7 +27,8 @@ class Habit {
       this.selected,
       this.delay,
       this.recommended,
-      this.limit);
+      this.limit,
+      this.lastTimeDone);
 
   //Methods
   Habit.fromJson(Map<String, dynamic> json)
@@ -41,7 +43,9 @@ class Habit {
         finished = false,
         delay = json['delay'],
         recommended = false,
-        limit = DateTime.now().add(Duration(days: json['delay'] + 1));
+        limit = DateTime.now().add(Duration(days: json['delay'] + 1)),
+        lastTimeDone = DateTime.now().subtract(
+            Duration(days: 1)); //init to the day before to avoid null safety
 
   Habit.fromFirestore(Map<String, dynamic> json)
       : name = json['name'],
@@ -55,7 +59,8 @@ class Habit {
         finished = json['finished'],
         delay = json['delay'],
         recommended = json['recommended'],
-        limit = json['limit'].toDate();
+        limit = json['limit'].toDate(),
+        lastTimeDone = json['lastTimeDone'].toDate();
 
   Map<String, dynamic> toJson() {
     return {
@@ -70,7 +75,8 @@ class Habit {
       'finished': finished,
       'delay': delay,
       'recommended': recommended,
-      'limit': limit
+      'limit': limit,
+      'lastTimeDone': lastTimeDone
     };
   }
 

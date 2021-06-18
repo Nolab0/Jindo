@@ -1,13 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:greennindo/business_logic/mainPageLogic.dart';
 import 'package:greennindo/models/habit.dart';
+import 'package:greennindo/models/user_data.dart';
+import 'package:greennindo/presentation/partialViews/habitDialog.dart';
 import 'package:greennindo/presentation/utilities/color.dart';
 import 'package:greennindo/presentation/utilities/gradientButton.dart';
 
 //Class for habit card in the main page
 class HabitCard extends StatefulWidget {
   final Habit habit;
-  HabitCard({@required this.habit});
+  final List<Habit> userHabits;
+  final UserData userData; //Pass the uid of the user
+  HabitCard(
+      {@required this.habit,
+      @required this.userData,
+      @required this.userHabits});
   @override
   _HabitCardState createState() => _HabitCardState();
 }
@@ -108,7 +116,13 @@ class _HabitCardState extends State<HabitCard> {
                           )),
                     ),
                     onTap: () {
-                      //TODO: redirect to habit choose screen
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return habitDialog(habit, context, widget.userData);
+                          });
+                      completeHabit(
+                          widget.userHabits, widget.habit, widget.userData);
                     },
                   )
                 : impossible
@@ -127,7 +141,14 @@ class _HabitCardState extends State<HabitCard> {
                           ),
                         ),
                         onTap: () {
-                          //TODO: redirect to loose point screen
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return habitDialog(
+                                    habit, context, widget.userData);
+                              });
+                          failHabit(
+                              widget.userHabits, widget.habit, widget.userData);
                         },
                       )
                     : GestureDetector(
@@ -151,16 +172,12 @@ class _HabitCardState extends State<HabitCard> {
                         onTap: habit.doneToday
                             ? null //button disabled
                             : () {
-                                if (!habit.doneToday) //button enabled
-                                  setState(() {
-                                    habit.doneToday = true;
-                                    habit.currentTimes++;
-                                    if (habit.currentTimes ==
-                                        habit.objectiveTimes)
-                                      habit.finished = true;
-                                  });
-                              },
-                      )),
+                                setState(() {
+                                  if (!habit.doneToday) //button enabled
+                                    habit = completeHabitDay(widget.userHabits,
+                                        widget.habit, widget.userData);
+                                });
+                              }))
       ]),
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(20)),
@@ -186,11 +203,14 @@ class HabitCardAdd extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                habit.name,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
+              Container(
+                width: 200,
+                child: Text(
+                  habit.name,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
               Column(

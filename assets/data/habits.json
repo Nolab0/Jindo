@@ -32,7 +32,7 @@
         "difficulty": 4
     },
     {
-        "name": "Take shower less than 5min",
+        "name": "Try to reduce your waste",
         "objectiveTimes": 5,
         "delay": 8,
         "gainedPoints":10,

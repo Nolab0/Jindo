@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:greennindo/business_logic/auth.dart';
+import 'package:greennindo/business_logic/mainPageLogic.dart';
 import 'package:greennindo/data_access/database.dart';
 import 'package:greennindo/models/habit.dart';
 import 'package:greennindo/models/user_data.dart';
@@ -30,6 +31,7 @@ class _MainPageState extends State<MainPage> {
         if (snapshot.hasData) {
           UserData userData = snapshot.data;
           habits = userData.habits;
+          initHabits(habits, userData);
           if (habits.length > 0) {
             empty = false;
           } else {
@@ -179,7 +181,11 @@ class _MainPageState extends State<MainPage> {
                                   itemCount: habits.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
-                                    return HabitCard(habit: habits[index]);
+                                    return HabitCard(
+                                      userHabits: habits,
+                                      habit: habits[index],
+                                      userData: userData,
+                                    );
                                   },
                                 )),
                           ),

@@ -45,28 +45,28 @@
             "questionType": "mcq"
         },
         {
-            "question": "How many times you changed your smarthpone in the last three years ?",
+            "question": "Have you changed your smartphone in the last three years ?",
             "answers": 
             ["I have the same since three years","1 time","2-3 times","More than 3 times"],
             "correspondingPoints": ["10","5","0","-5"],
             "questionType": "mcq"
         },
         {
-            "question": "How often did you use Youtube/Netflix...",
+            "question": "How often do you use Youtube/Netflix...",
             "answers": 
             ["Never","Weekly","Every day"],
             "correspondingPoints": ["5","0","-5"],
             "questionType": "mcq"
         },
         {
-            "question": "Did you recycle your waste ?",
+            "question": "Do you recycle your waste ?",
             "answers": 
             ["Yes","I try","No"],
             "correspondingPoints": ["10","5","-5"],
             "questionType": "mcq"
         },
         {
-            "question": "According to you, the ecology is an important subject ?",
+            "question": "According to you, ecology is an important subject ?",
             "answers": 
             ["Yes","No"],
             "correspondingPoints": ["5","-5"],

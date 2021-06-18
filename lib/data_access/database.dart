@@ -16,11 +16,17 @@ class DatabaseService {
   Future updateUserData(
       String name, int score, bool done, List<Habit> habits) async {
     return await usersData.doc(uid).set({
+      'userId': uid,
       'name': name,
       'score': score,
       'surveyDone': done,
       'habits': habits.map((e) => e.toJson()).toList()
     });
+  }
+
+  //Update only the score of a user
+  Future updateScore(int score) async {
+    return await usersData.doc(uid).update({'score': score});
   }
 
   //Update only the habits of the user
