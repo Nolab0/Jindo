@@ -8,19 +8,19 @@ import 'loading.dart';
 
 List items = [
   {
-    "header": "Get your score an take new habits ",
+    "header": "Get your ecological score",
     "description":
-        "Jindo will establish your ecological score and recommend some habits",
+        "Jindo will establish your ecological score according to your current habits",
     "image": "assets/images/appView.png"
   },
   {
-    "header": "Get your ecological score an take new habits ",
+    "header": "Take and track new habits",
     "description":
-        "Online chat which provides its users maximum functionality to simplify the search",
+        "Jindo will recommend you some habits and will help you to track them",
     "image": "assets/images/progress.png"
   },
   {
-    "header": "Get your ecological score an take new habits ",
+    "header": "Become a better person !",
     "description":
         "Online chat which provides its users maximum functionality to simplify the search",
     "image": "assets/images/walking.png"
@@ -151,25 +151,30 @@ class _WelcomePageState extends State<WelcomePage> {
                               ),
                               textAlign: TextAlign.center,
                             ),
-                            OutlinedButton(
-                              onPressed: () async {
-                                setState(() {
-                                  loading = true;
-                                });
-                                dynamic result = _auth.signInAnon();
-                                if (result == null) {
-                                  print("Error sign in");
-                                } else {
-                                  print("User sign in");
-                                }
-                              },
-                              child: Text(
-                                "Get started",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey[700]),
-                              ),
+                            Container(
+                              padding: EdgeInsets.only(top: 30),
+                              child: OutlinedButton(
+                                  onPressed: () async {
+                                    setState(() {
+                                      loading = true;
+                                    });
+                                    dynamic result = _auth.signInAnon();
+                                    if (result == null) {
+                                      print("Error sign in");
+                                    } else {
+                                      print("User sign in");
+                                    }
+                                  },
+                                  child: Text(
+                                    "Get started",
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white),
+                                  ),
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.green[400]),
+                                  )),
                             )
                           ],
                         )),

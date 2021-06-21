@@ -6,10 +6,19 @@ import 'package:greennindo/models/habit.dart';
 import 'package:greennindo/models/user_data.dart';
 
 //Load the list of habits from a Json file
-Future<List<Habit>> loadHabits() async {
+//Remove the current habits of the user
+Future<List<Habit>> loadHabits(List<Habit> currentHabits) async {
   String json = await rootBundle.loadString("assets/data/habits.json");
   List<dynamic> jsonDecoded = jsonDecode(json);
-  return jsonDecoded.map((jsonDecoded) => Habit.fromJson(jsonDecoded)).toList();
+  List<Habit> habitsFromJson =
+      jsonDecoded.map((jsonDecoded) => Habit.fromJson(jsonDecoded)).toList();
+  for (int i = 0; i < habitsFromJson.length; i++) {
+    for (int j = 0; j < currentHabits.length; j++) {
+      if (habitsFromJson[i].name == currentHabits[j].name)
+        habitsFromJson.removeAt(i);
+    }
+  }
+  return habitsFromJson;
 }
 
 //Recommend some habits: TODO: add the system for real recommendation

@@ -25,7 +25,7 @@ class _HabitSelectionState extends State<HabitSelection> {
 
   //Load the habits
   Future<List<Habit>> loadData() async {
-    return await loadHabits();
+    return await loadHabits(widget.currentHabits);
   }
 
   @override
