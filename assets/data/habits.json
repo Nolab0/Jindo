@@ -1,42 +1,50 @@
 [
     {
-        "name": "Take shower less than 5min",
-        "objectiveTimes": 5,
-        "delay": 8,
-        "gainedPoints":10,
+        "name": "Take shower less than 5min with tepid water",
+        "objectiveTimes": 10,
+        "delay": 20,
+        "gainedPoints":5,
         "loosePoints":5,
-        "difficulty": 4
+        "difficulty": 6
     },
     {
-        "name": "Turn off your devices the night",
-        "objectiveTimes": 5,
-        "delay": 8,
+        "name": "Turn off your devices the night, even the one in sleep mode",
+        "objectiveTimes": 15,
+        "delay": 20,
         "gainedPoints":10,
         "loosePoints":5,
-        "difficulty": 10
+        "difficulty": 2
     },
     {
-        "name": "Eat less meat",
-        "objectiveTimes": 5,
-        "delay": 8,
-        "gainedPoints":10,
+        "name": "Eat little less meat than usual for a week",
+        "objectiveTimes": 7,
+        "delay": 7,
+        "gainedPoints":15,
+        "loosePoints":8,
+        "difficulty": 8
+    },
+    {
+        "name": "Sort your wastes",
+        "objectiveTimes": 20,
+        "delay": 30,
+        "gainedPoints":15,
         "loosePoints":5,
         "difficulty": 7
     },
     {
-        "name": "Recycle your wastes",
-        "objectiveTimes": 5,
-        "delay": 8,
-        "gainedPoints":10,
-        "loosePoints":5,
-        "difficulty": 4
-    },
-    {
-        "name": "Try to reduce your waste",
-        "objectiveTimes": 5,
+        "name": "Take non-polluting transport such as bike or scooter for short distance",
+        "objectiveTimes": 3,
         "delay": 8,
         "gainedPoints":10,
         "loosePoints":5,
         "difficulty": 6
+    },
+    {
+        "name": "Buy groceries and products from local production",
+        "objectiveTimes": 5,
+        "delay": 20,
+        "gainedPoints":15,
+        "loosePoints":8,
+        "difficulty": 7
     }
 ]

@@ -14,5 +14,7 @@ class UserData {
   bool surveyDone; //true if the user has done the launch survey
   List<Habit>
       habits; //current habits of the user (don't need to be init via the constructor)
-  UserData({this.uid, this.name, this.score, this.surveyDone});
+  List<Habit> completedHabits;
+  UserData(
+      {this.uid, this.name, this.score, this.surveyDone, this.completedHabits});
 }

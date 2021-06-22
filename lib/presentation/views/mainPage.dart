@@ -120,7 +120,7 @@ class _MainPageState extends State<MainPage> {
                           Container(
                             width: 200,
                             child: Text(
-                              "Congratulation ! You have a really good score. It means that your are aware of the current ecological situation.",
+                              personalizedTextMotiv(userData.score),
                               style:
                                   TextStyle(fontSize: 15, color: Colors.white),
                             ),
@@ -182,9 +182,8 @@ class _MainPageState extends State<MainPage> {
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return HabitCard(
-                                      userHabits: habits,
                                       habit: habits[index],
-                                      userData: userData,
+                                      index: index,
                                     );
                                   },
                                 )),

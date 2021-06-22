@@ -20,7 +20,7 @@ class DatabaseService {
       'name': name,
       'score': score,
       'surveyDone': done,
-      'habits': habits.map((e) => e.toJson()).toList()
+      'habits': habits.map((e) => e.toJson()).toList(),
     });
   }
 
@@ -36,6 +36,12 @@ class DatabaseService {
         .update({'habits': habits.map((e) => e.toJson()).toList()});
   }
 
+  Future updateUserCompletedHabits(List<Habit> completed) async {
+    return await usersData
+        .doc(uid)
+        .update({'habitsCompleted': completed.map((e) => e.toJson()).toList()});
+  }
+
   //user data from snapshot
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     UserData data = UserData(
@@ -44,6 +50,9 @@ class DatabaseService {
         score: snapshot['score'],
         surveyDone: snapshot['surveyDone']);
     data.habits = snapshot['habits'].map<Habit>((e) {
+      return Habit.fromFirestore(e);
+    }).toList();
+    data.completedHabits = snapshot['habitsCompleted'].map<Habit>((e) {
       return Habit.fromFirestore(e);
     }).toList();
     return data;

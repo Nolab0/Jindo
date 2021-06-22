@@ -143,7 +143,7 @@ class _WelcomePageState extends State<WelcomePage> {
                               ),
                             ),
                             Text(
-                              "Before starting, Gindo needs to have some information about you and your current habits",
+                              "Before starting, Jindo needs to have some information about you and your current habits",
                               style: TextStyle(
                                 color: Colors.grey,
                                 letterSpacing: 1.2,
