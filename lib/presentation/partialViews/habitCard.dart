@@ -278,3 +278,30 @@ class HabitCardAdd extends StatelessWidget {
     );
   }
 }
+
+//Class for habit card for finished habits
+class HabitCardFinished extends StatelessWidget {
+  final Habit habit;
+  HabitCardFinished({this.habit});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 20),
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      height: 100,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(habit.name,
+              style: TextStyle(
+                  fontSize: 16, color: Colors.black.withOpacity(0.6))),
+          Text("Completed " + habit.objectiveTimes.toString() + " times"),
+          Text(habit.gainedPoints.toString() + " points gained",
+              style: TextStyle(color: Colors.green))
+        ],
+      ),
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(20)),
+    );
+  }
+}

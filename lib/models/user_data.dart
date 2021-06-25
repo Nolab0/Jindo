@@ -15,6 +15,5 @@ class UserData {
   List<Habit>
       habits; //current habits of the user (don't need to be init via the constructor)
   List<Habit> completedHabits;
-  UserData(
-      {this.uid, this.name, this.score, this.surveyDone, this.completedHabits});
+  UserData({this.uid, this.name, this.score, this.surveyDone});
 }

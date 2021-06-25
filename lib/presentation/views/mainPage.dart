@@ -9,6 +9,7 @@ import 'package:greennindo/presentation/utilities/color.dart';
 import 'package:greennindo/presentation/partialViews/habitCard.dart';
 import 'package:greennindo/presentation/views/habitePage.dart';
 import 'package:greennindo/presentation/views/loading.dart';
+import 'package:greennindo/presentation/views/userPage.dart';
 import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
@@ -17,7 +18,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  final AuthService _auth = AuthService();
   List<Habit> habits = [];
 
   bool empty = true; //true if the user has no habit to do7
@@ -47,20 +47,25 @@ class _MainPageState extends State<MainPage> {
                 children: [
                   Align(
                     alignment: Alignment.topRight,
-                    child: Container(
-                      alignment: Alignment.center,
-                      //TODO: profile picture
-                      width: 35,
-                      height: 35,
-                      decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.8),
-                          borderRadius: BorderRadius.circular(25)),
-                      child: IconButton(
-                          icon: Icon(Icons.person),
-                          color: Colors.white,
-                          onPressed: () async {
-                            await _auth.signOut();
-                          }),
+                    child: GestureDetector(
+                      child: Container(
+                        alignment: Alignment.center,
+                        //TODO: profile picture
+                        width: 35,
+                        height: 35,
+                        decoration: BoxDecoration(
+                            gradient: gradient(),
+                            borderRadius: BorderRadius.circular(25)),
+                        child: Icon(Icons.person, color: Colors.white),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UserPage(
+                                      userData: userData,
+                                    )));
+                      },
                     ),
                   ),
                   Column(
