@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:greennindo/business_logic/auth.dart';
 import 'package:greennindo/business_logic/mainPageLogic.dart';
 import 'package:greennindo/data_access/database.dart';
 import 'package:greennindo/models/habit.dart';

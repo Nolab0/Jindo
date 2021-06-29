@@ -61,4 +61,19 @@ class DatabaseService {
   Stream<UserData> get userData {
     return usersData.doc(uid).snapshots().map(_userDataFromSnapshot);
   }
+
+  List<UserData> _listUserDataFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      UserData data = UserData(
+          uid: doc['userId'],
+          name: doc['name'],
+          score: doc['score'],
+          surveyDone: doc['surveyDone']);
+      return data;
+    }).toList();
+  }
+
+  Stream<List<UserData>> get allUserData {
+    return usersData.snapshots().map(_listUserDataFromSnapshot);
+  }
 }

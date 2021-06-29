@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:greennindo/business_logic/auth.dart';
 import 'package:greennindo/models/user_data.dart';
 import 'package:greennindo/presentation/views/finishedhabtis.dart';
+import 'package:greennindo/presentation/views/leaderBoard.dart';
 
 class UserPage extends StatelessWidget {
   final UserData userData; //pass the user data in parameter
@@ -56,12 +57,16 @@ class UserPage extends StatelessWidget {
                             redirection: () => print("OOF"),
                           ),
                           OptionLine(
-                            title: "Leaderboard",
-                            icon: Icons.leaderboard,
-                            color: Colors.amber[400],
-                            iconColor: Colors.amber[900],
-                            redirection: () => print("OOF"),
-                          ),
+                              title: "Leaderboard",
+                              icon: Icons.leaderboard,
+                              color: Colors.amber[400],
+                              iconColor: Colors.amber[900],
+                              redirection: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LeaderBoard(
+                                            user: userData,
+                                          )))),
                           OptionLine(
                               title: "Sign out",
                               icon: Icons.logout,
