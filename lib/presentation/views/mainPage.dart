@@ -50,7 +50,7 @@ class _MainPageState extends State<MainPage> {
                     child: GestureDetector(
                       child: Container(
                         alignment: Alignment.center,
-                        //TODO: profile picture
+                        //TODO: profile picture ?
                         width: 35,
                         height: 35,
                         decoration: BoxDecoration(

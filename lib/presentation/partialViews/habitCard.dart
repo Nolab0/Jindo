@@ -51,7 +51,7 @@ class _HabitCardState extends State<HabitCard> {
             return Container(
               width: double.infinity,
               height: 160,
-              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+              margin: EdgeInsets.symmetric(horizontal: 6, vertical: 12),
               padding: EdgeInsets.fromLTRB(8, 15, 8, 5),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,13 +133,13 @@ class _HabitCardState extends State<HabitCard> {
                                       )),
                                 ),
                                 onTap: () {
+                                  completeHabit(data.habits, habit, data);
                                   showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
                                         return habitDialog(
                                             habit, context, data);
                                       });
-                                  completeHabit(data.habits, habit, data);
                                 },
                               )
                             : impossible
@@ -290,6 +290,7 @@ class HabitCardFinished extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       height: 100,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(habit.name,

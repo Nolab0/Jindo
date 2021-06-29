@@ -56,8 +56,8 @@ class UserPage extends StatelessWidget {
                             redirection: () => print("OOF"),
                           ),
                           OptionLine(
-                            title: "Achievements",
-                            icon: Icons.school,
+                            title: "Leaderboard",
+                            icon: Icons.leaderboard,
                             color: Colors.amber[400],
                             iconColor: Colors.amber[900],
                             redirection: () => print("OOF"),

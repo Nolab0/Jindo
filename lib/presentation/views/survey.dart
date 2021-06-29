@@ -102,6 +102,14 @@ class _SurveyState extends State<Survey> {
                                           fontSize: 14,
                                           letterSpacing: 1.5,
                                           color: Colors.grey[800])),
+                                  Text(
+                                      current.type == questionType.textfield
+                                          ? "You can enter your name or a pseudonyme"
+                                          : "",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          letterSpacing: 1.5,
+                                          color: Colors.grey[800]))
                                 ],
                               ),
                             ),

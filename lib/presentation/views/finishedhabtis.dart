@@ -29,14 +29,20 @@ class FinishedHabits extends StatelessWidget {
                       "Your completed habits: ",
                       style: TextStyle(fontSize: 18),
                     ),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: finished.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return HabitCardFinished(
-                            habit: finished[index],
-                          );
-                        },
+                    Text("Congratulations, you have completed " +
+                        finished.length.toString() +
+                        " habits"),
+                    ScrollConfiguration(
+                      behavior: NoGlowBehaviour(),
+                      child: Expanded(
+                        child: ListView.builder(
+                          itemCount: finished.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return HabitCardFinished(
+                              habit: finished[index],
+                            );
+                          },
+                        ),
                       ),
                     )
                   ],
@@ -47,5 +53,14 @@ class FinishedHabits extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+//class for removing the glow from the scrolling part
+class NoGlowBehaviour extends ScrollBehavior {
+  @override
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
+    return child;
   }
 }

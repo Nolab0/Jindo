@@ -23,7 +23,7 @@ class Option extends StatelessWidget {
           children: [
             Text(
               option,
-              style: TextStyle(fontSize: 20, color: Colors.black),
+              style: TextStyle(fontSize: 18, color: Colors.black),
             ),
             Icon(
               selected ? Icons.check_circle : Icons.circle_outlined,

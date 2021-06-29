@@ -22,6 +22,7 @@ class Wrapper extends StatelessWidget {
             return StreamBuilder(
               stream: DatabaseService(uid: user.uid).userData,
               builder: (context, snapshot) {
+                print(snapshot.data);
                 if (snapshot.data != null && !snapshot.data.surveyDone) {
                   return Survey();
                 } else {

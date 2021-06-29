@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:greennindo/models/habit.dart';
 import 'package:greennindo/models/user_data.dart';
@@ -21,6 +19,7 @@ class DatabaseService {
       'score': score,
       'surveyDone': done,
       'habits': habits.map((e) => e.toJson()).toList(),
+      'habitsCompleted': []
     });
   }
 

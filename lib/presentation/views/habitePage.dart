@@ -83,29 +83,35 @@ class _HabitSelectionState extends State<HabitSelection> {
                         SizedBox(
                           height: 410,
                           //Display the recommended habits
-                          child: ListView.builder(
-                              itemCount: habits.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                if (habits[index].recommended) {
-                                  return GestureDetector(
-                                    child: HabitCardAdd(
-                                      habit: habits[index],
-                                    ),
-                                    onTap: () {
-                                      setState(() {
-                                        nbSelectedHabits = selectHabit(
-                                            habits,
-                                            index,
-                                            nbSelectedHabits,
-                                            maxSelectedHabits);
-                                        selectedHabits.add(habits[index]);
-                                      });
-                                    },
-                                  );
-                                } else {
-                                  return Container();
-                                }
-                              }),
+                          child: ScrollConfiguration(
+                            behavior: NoGlowBehaviour(),
+                            child: ListView.builder(
+                                itemCount: habits.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  if (habits[index].recommended) {
+                                    return GestureDetector(
+                                      child: HabitCardAdd(
+                                        habit: habits[index],
+                                      ),
+                                      onTap: () {
+                                        setState(() {
+                                          nbSelectedHabits = selectHabit(
+                                              habits,
+                                              index,
+                                              nbSelectedHabits,
+                                              maxSelectedHabits);
+                                          if (!selectedHabits
+                                              .contains(habits[index])) {
+                                            selectedHabits.add(habits[index]);
+                                          }
+                                        });
+                                      },
+                                    );
+                                  } else {
+                                    return Container();
+                                  }
+                                }),
+                          ),
                         ),
                         Container(
                             margin: EdgeInsets.symmetric(horizontal: 10),
@@ -115,30 +121,36 @@ class _HabitSelectionState extends State<HabitSelection> {
                           width: 500,
                           height: 150,
                           //Display the not recommended habits
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: habits.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                if (!habits[index].recommended) {
-                                  return GestureDetector(
-                                    child: HabitCardAdd(
-                                      habit: habits[index],
-                                    ),
-                                    onTap: () {
-                                      setState(() {
-                                        nbSelectedHabits = selectHabit(
-                                            habits,
-                                            index,
-                                            nbSelectedHabits,
-                                            maxSelectedHabits);
-                                        selectedHabits.add(habits[index]);
-                                      });
-                                    },
-                                  );
-                                } else {
-                                  return Container();
-                                }
-                              }),
+                          child: ScrollConfiguration(
+                            behavior: NoGlowBehaviour(),
+                            child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: habits.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  if (!habits[index].recommended) {
+                                    return GestureDetector(
+                                      child: HabitCardAdd(
+                                        habit: habits[index],
+                                      ),
+                                      onTap: () {
+                                        setState(() {
+                                          nbSelectedHabits = selectHabit(
+                                              habits,
+                                              index,
+                                              nbSelectedHabits,
+                                              maxSelectedHabits);
+                                          if (!selectedHabits
+                                              .contains(habits[index])) {
+                                            selectedHabits.add(habits[index]);
+                                          }
+                                        });
+                                      },
+                                    );
+                                  } else {
+                                    return Container();
+                                  }
+                                }),
+                          ),
                         ),
                       ],
                     ),
@@ -177,5 +189,14 @@ class _HabitSelectionState extends State<HabitSelection> {
         }
       },
     );
+  }
+}
+
+//class for removing the glow from the scrolling part
+class NoGlowBehaviour extends ScrollBehavior {
+  @override
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
+    return child;
   }
 }
