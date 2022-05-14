@@ -1,0 +1,77 @@
+{
+    "totalQuestion": "10",
+    "questions":
+    [
+        {
+            "question": "What's your name ?",
+            "answers": 
+            ["1","2","3","4"],
+            "correspondingPoints": ["-5","0","5","10"],
+            "questionType": "textField"
+        },
+        {
+            "question": "What is your main mean of transport ?",
+            "answers": 
+            ["Foot-bike-Scooter","Public transportation","Personal car"],
+            "correspondingPoints": ["5","0","-5"],
+            "questionType": "mcq"
+        },
+        {
+            "question": "What percentage of your food shopping is local ?",
+            "answers": 
+            ["Less than 20%","Between 20% and 50%","Between 50% and 75%","More than 75%"],
+            "correspondingPoints": ["-10","0","5","10"],
+            "questionType": "mcq"
+        },
+        {
+            "question": "Do you buy organic groceries ?",
+            "answers": 
+            ["Often","Usually","Never"],
+            "correspondingPoints": ["10","5","-5"],
+            "questionType": "mcq"
+        },
+        {
+            "question": "How often do you eat meat ?",
+            "answers": 
+            ["I didn't eat meat","Between 1 and 5 times a week","Between 5 and 10 times a week","More than 10 times a week"],
+            "correspondingPoints": ["10","5","0","-5"],
+            "questionType": "mcq"
+        },
+        {
+            "question": "How often did you buy new clothes ?",
+            "answers": 
+            ["Less than one time a month","Monthly","Weekly"],
+            "correspondingPoints": ["10","0","-5"],
+            "questionType": "mcq"
+        },
+        {
+            "question": "Have you changed your smartphone in the last three years ?",
+            "answers": 
+            ["I have the same since three years","1 time","2-3 times","More than 3 times"],
+            "correspondingPoints": ["10","5","0","-5"],
+            "questionType": "mcq"
+        },
+        {
+            "question": "How often do you use Youtube/Netflix...",
+            "answers": 
+            ["Never","Weekly","Every day"],
+            "correspondingPoints": ["5","0","-5"],
+            "questionType": "mcq"
+        },
+        {
+            "question": "Do you recycle your waste ?",
+            "answers": 
+            ["Yes","I try","No"],
+            "correspondingPoints": ["10","5","-5"],
+            "questionType": "mcq"
+        },
+        {
+            "question": "According to you, ecology is an important subject ?",
+            "answers": 
+            ["Yes","No"],
+            "correspondingPoints": ["5","-5"],
+            "questionType": "mcq"
+        }
+    ]
+
+}
